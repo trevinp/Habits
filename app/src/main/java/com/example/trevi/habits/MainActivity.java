@@ -1,5 +1,6 @@
 package com.example.trevi.habits;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper = new HabitDbHelper(this);
         WriteDb();
+
         Cursor cursor = ReadDb();
 
         try {
@@ -62,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void WriteDb() {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_NAME, "Run 3 miles");
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_PRIORITY, "A");
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_FREQUENCY, HabitContract.HabitEntry.FREQUENCY_EVERY_OTHER);
+        long newRowId = db.insert(HabitContract.HabitEntry.TABLE_NAME, null, values);
+
+        values.clear();
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_NAME, "Meditate");
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_PRIORITY, "B");
+        values.put(HabitContract.HabitEntry.COLUMN_HABIT_FREQUENCY, HabitContract.HabitEntry.FREQUENCY_DAILY);
+        newRowId = db.insert(HabitContract.HabitEntry.TABLE_NAME, null, values);
     }
 }
+
