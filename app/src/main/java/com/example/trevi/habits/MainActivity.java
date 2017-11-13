@@ -20,8 +20,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDbHelper = new HabitDbHelper(this);
+        // Write sample data to database
         WriteDb();
 
+        // Read data from database and write to logcat window
         Cursor cursor = ReadDb();
 
         try {
